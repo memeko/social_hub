@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>BRFOX · Социальный хаб</title>
+  <style>
+    :root {
+      --bg: #0b0b10;
+      --card-bg: #13131b;
+      --accent: #b37aff;
+      --accent-soft: rgba(179,122,255,0.18);
+      --text-main: #f5f5f7;
+      --text-muted: #a0a0b3;
+      --border: #252538;
+      --hover: rgba(179,122,255,0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #1b1b2b 0, #050509 55%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      color: var(--text-main);
+    }
+
+    .hub-card {
+      background: radial-gradient(circle at top left, #1f172a 0, #111118 55%);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+      padding: 20px 22px 18px;
+      max-width: 620px;
+      width: 100%;
+    }
+
+    .card-header-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .card-pill {
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .card-small-label {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-bottom: 2px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .hub-card {
+        border-radius: 14px;
+        padding: 18px 16px 16px;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .social-tile {
+      position: relative;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(0,0,0,0.18);
+      padding: 10px 10px 9px;
+      text-decoration: none;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: background 0.18s ease, border-color 0.18s ease,
+        transform 0.12s ease, box-shadow 0.18s ease;
+      overflow: hidden;
+    }
+
+    .social-tile::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(179,122,255,0.16), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .social-tile:hover {
+      background: rgba(255,255,255,0.03);
+      border-color: var(--hover);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.6);
+    }
+
+    .social-tile:hover::before {
+      opacity: 1;
+    }
+
+    .social-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .social-name {
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .social-badge {
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .social-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .social-emoji {
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.4);
+      box-shadow: 0 0 8px rgba(0,0,0,0.6);
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .small-url {
+      font-size: 9px;
+      color: rgba(160,160,179,0.9);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-top: 1px;
+    }
+
+    .card-footer {
+      margin-top: 6px;
+      font-size: 10px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .card-footer span {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="hub-card">
+    <div class="card-header-line">
+      <div class="card-pill">social control room</div>
+      <div class="card-small-label">BRFOX · live & content</div>
+    </div>
+
+    <div class="card-title">Хаб управления соцсетями</div>
+    <div class="card-subtitle">
+      Быстрый доступ к площадкам: творчество, аудитория и статистика в одном окне.
+    </div>
+
+    <div class="grid">
+      <!-- Boosty -->
+      <a class="social-tile" href="https://boosty.to/br.fox" target="_blank" rel="noopener noreferrer">
+        <div class="social-top-row">
+          <div class="social-name">
+            <div class="social-emoji">💰</div>
+            Boosty
+          </div>
+          <div class="social-badge">support</div>
+        </div>
+        <div class="social-desc">
+          Поддержка, эксклюзивный контент, закулисье проектов.
+        </div>
+        <div class="small-url">boosty.to/br.fox</div>
+      </a>
+
+      <!-- Telegram -->
+      <a class="social-tile" href="https://t.me/brfox_cosplay" target="_blank" rel="noopener noreferrer">
+        <div class="social-top-row">
+          <div class="social-name">
+            <div class="social-emoji">📨</div>
+            Telegram
+          </div>
+          <div class="social-badge">primary feed</div>
+        </div>
+        <div class="social-desc">
+          Канал с косплеем, анонсами, мыслями и экспериментами.
+        </div>
+        <div class="small-url">t.me/brfox_cosplay</div>
+      </a>
+
+      <!-- VK -->
+      <a class="social-tile" href="https://vk.com/brfox_cosplay" target="_blank" rel="noopener noreferrer">
+        <div class="social-top-row">
+          <div class="social-name">
+            <div class="social-emoji">🖤</div>
+            ВКонтакте
+          </div>
+          <div class="social-badge">community</div>
+        </div>
+        <div class="social-desc">
+          Сообщество для подписчиков, репосты, фото и новости.
+        </div>
+        <div class="small-url">vk.com/brfox_cosplay</div>
+      </a>
+
+      <!-- Pinterest -->
+      <a class="social-tile" href="https://it.pinterest.com/business/hub/" target="_blank" rel="noopener noreferrer">
+        <div class="social-top-row">
+          <div class="social-name">
+            <div class="social-emoji">📌</div>
+            Pinterest
+          </div>
+          <div class="social-badge">moodboards</div>
+        </div>
+        <div class="social-desc">
+          Референсы, мудборды, визуальные миры персонажей.
+        </div>
+        <div class="small-url">pinterest.com · business hub</div>
+      </a>
+
+      <!-- YouTube Studio -->
+      <a class="social-tile" href="https://studio.youtube.com/" target="_blank" rel="noopener noreferrer">
+        <div class="social-top-row">
+          <div class="social-name">
+            <div class="social-emoji">🎬</div>
+            YouTube Studio
+          </div>
+          <div class="social-badge">creator</div>
+        </div>
+        <div class="social-desc">
+          Управление видео, аналитика, монтаж и релизы.
+        </div>
+        <div class="small-url">studio.youtube.com</div>
+      </a>
+
+      <!-- Instagram -->
+      <a class="social-tile" href="https://instagram.com/brfox_cosplay/" target="_blank" rel="noopener noreferrer">
+        <div class="social-top-row">
+          <div class="social-name">
+            <div class="social-emoji">📷</div>
+            Instagram
+          </div>
+          <div class="social-badge">visual</div>
+        </div>
+        <div class="social-desc">
+          Косплей, образы, визуальные истории и эстетичные кадры.
+        </div>
+        <div class="small-url">instagram.com/brfox_cosplay</div>
+      </a>
+    </div>
+
+    <div class="card-footer">
+      <span>У тебя еще Сяохуншу есть, так-то. </span>
+      <span>...кстати, и с книжным блогом постарайся.</span>
+    </div>
+  </div>
+</body>
+</html>
